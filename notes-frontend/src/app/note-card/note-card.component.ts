@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-note-card',
@@ -7,6 +7,8 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 })
 export class NoteCardComponent implements OnInit {
 
+  @Input('title') title: string; 
+  @Input('body') body: string; 
   @ViewChild('truncator') truncator: ElementRef<HTMLElement>;
   @ViewChild('bodyText') bodyText: ElementRef<HTMLElement>;
 

@@ -12,7 +12,9 @@
     </div>
 
     <div class="notes-list">
-      <app-note-card></app-note-card>
+      <app-note-card [title]="'title'" [body]="'Body'"></app-note-card>
+
+      <!-- [title]="'title'" is equivalent to title="title" -> Syntaxic sugar -->
       <app-note-card></app-note-card>
       <app-note-card></app-note-card>
       <app-note-card></app-note-card>
