@@ -12,12 +12,19 @@
     </div>
 
     <div class="notes-list">
-
-      <app-note-card 
+      <!--
+        <app-note-card 
         *ngFor="let note of notes; index as i"
         [title]="note.title" 
         [body]="note.body"
         [routerLink]="i">
+      -->
+      <app-note-card 
+        *ngFor="let note of notes; index as i"
+        [title]="note.title" 
+        [body]="note.body"
+        [link]="i"
+        (delete)="deleteNote(i)">
       </app-note-card>
       <!-- [title]="'title'" is equivalent to title="title" -> Syntaxic sugar -->
     </div>
