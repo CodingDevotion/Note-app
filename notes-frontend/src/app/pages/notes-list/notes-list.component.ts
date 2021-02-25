@@ -1,5 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Note } from 'src/app/shared/note.model';
 import { NotesService } from 'src/app/shared/notes.service';
 
@@ -87,17 +87,22 @@ export class NotesListComponent implements OnInit {
   notes: Note[] = new Array<Note>();
   filteredNotes: Note[] = new Array<Note>();
 
+  @ViewChild('filterInput') filterInputElRef: ElementRef<HTMLInputElement>
+
   constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
     // Retreiving all the notes from NoteServices
     this.notes = this.notesService.getAll();
-    this.filteredNotes = this.notes;
-
+    this.filter("");
   }
 
-  deleteNote(id: number){
-    this.notesService.delete(id);
+  deleteNote(note: Note){
+    let noteId: number = this.notesService.getId(note);
+    this.notesService.delete(noteId);
+
+    // When we delete a note, we need to filter the notes again to make sure the filtering is updated.
+    this.filter(this.filterInputElRef.nativeElement.value);
   }
 
   filter(query: string) {
@@ -120,6 +125,10 @@ export class NotesListComponent implements OnInit {
 
     // Sort the notes by relevancy
     this.sortByRelevancy(allResults);
+  }
+
+  generateLinkUrlFromNote(note: Note) : string {
+    return this.notesService.getId(note).toString();
   }
 
   private removeDuplicates(arr: Array<any>) : Array<any> {
